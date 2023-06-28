@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { PlusCircleIcon } from "@heroicons/react/24/solid";
+import { useEffect, useRef } from "react";
 import { useFetcher } from "react-router-dom";
 
 const AddExpenseForm = ({budgets}) => {
@@ -6,6 +7,18 @@ const AddExpenseForm = ({budgets}) => {
     const fetcher = useFetcher();
     const formRef = useRef();
     const focusRef = useRef();
+
+    const isSubmitting = fetcher.state === 'submitting';
+
+    useEffect(()=>{
+        if(!isSubmitting){
+            // clear form
+            formRef.current.reset()
+
+            // reset focus
+            focusRef.current.focus()
+        }
+    })
 
 
     return (
@@ -55,6 +68,19 @@ const AddExpenseForm = ({budgets}) => {
                         }
                     </select>
                 </div>
+
+                <input type="hidden" name='_action' value='createExpense'/>
+                <button type="submit" className="btn btn--dark" disabled={isSubmitting}>
+                    {
+                        isSubmitting ? <span>Submitting…</span> : (
+                        <>
+                            <span>Add Expense</span>
+                            <PlusCircleIcon width={20} />
+                        </>
+                        )
+                    }
+                </button>
+
             </fetcher.Form>
 
         </div>
