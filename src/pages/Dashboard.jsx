@@ -1,5 +1,5 @@
 // rrd imports
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 // library imports
 import { toast } from "react-toastify";
@@ -95,8 +95,18 @@ const Dashboard = () => {
                             expenses && expenses.length > 0 && (
                                 <div className="grid-md">
                                     <h2>Recent Expenses</h2>
-                                    <Table expenses={expenses.sort((a,b)=> b.createdAt - a.createdAt)}/>
-
+                                    <Table expenses={
+                                        
+                                        expenses.sort((a,b)=> b.createdAt - a.createdAt).slice(0,8)
+                                    
+                                    }/>
+                                    {expenses.lenght > 8 && (
+                                        <Link
+                                            to="expenses"
+                                        >
+                                            View all expenses
+                                        </Link>
+                                    )}
                                     
                                 </div>
                             )
