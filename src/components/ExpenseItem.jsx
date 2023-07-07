@@ -25,8 +25,7 @@ const ExpenseItem = ({ expense, showBudget }) => {
       <td>{expense.name}</td>
       <td>{formatCurrency(expense.amount)}</td>
       <td>{formatDateToLocaleString(expense.createdAt)}</td>
-      {
-        showBudget && (
+      {showBudget && (
         <td>
           <Link
             to={`/budget/${budget.id}`}
